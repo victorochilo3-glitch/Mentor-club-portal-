@@ -219,9 +219,9 @@ const SUPABASE_KEY = "sb_publishable_LA1_HPf5OLbojF5IlGPtRw_raiL6w8n";
 
   } catch (error) {
     console.error(error);
-    alert("Registration failed. Please try again.");
-  }
+    alert("Registration failed: " + error.message);
 }
+
 
 function login() {
   alert("Login system will be connected to the member database soon.");
