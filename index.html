@@ -114,7 +114,10 @@
 <input type="email" id="email" placeholder="Email address">
 
 <input type="password" id="password" placeholder="Password">
-<button onclick="joinClub()">Join Club</button>
+async function joinClub() {
+  document.getElementById("joinButton").innerText = "Joining...";
+
+  const name = document.getElementById("name").value.trim();
     </div>
 
 
