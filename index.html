@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Club Portal</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #123c69;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin-bottom: 5px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 25px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      margin-bottom: 20px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      color: #123c69;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #123c69;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #0d2e50;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: #eef5ff;
+      padding: 18px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      margin-top: 8px;
+      color: #123c69;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Mentor Club Portal</h1>
+    <p>Member Management & Finance Portal</p>
+  </header>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>Join Mentor Club</h2>
+
+      <input type="text" id="name" placeholder="Full name">
+
+      <input type="tel" id="phone" placeholder="Phone number">
+
+      <input type="email" id="email" placeholder="Email address">
+
+      <select id="gender">
+        <option value="">Select gender</option>
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+
+      <button onclick="joinClub()">Join Club</button>
+    </div>
+
+    <div class="card">
+      <h2>Club Overview</h2>
+
+      <div class="stats">
+        <div class="stat">
+          Members
+          <strong id="members">0</strong>
+        </div>
+
+        <div class="stat">
+          Money In
+          <strong id="moneyIn">0</strong>
+        </div>
+
+        <div class="stat">
+          Money Out
+          <strong id="moneyOut">0</strong>
+        </div>
+
+        <div class="stat">
+          Balance
+          <strong id="balance">0</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Member Login</h2>
+
+      <input type="email" id="loginEmail" placeholder="Email address">
+
+      <input type="password" id="loginPassword" placeholder="Password">
+
+      <button onclick="login()">Login</button>
+    </div>
+
+  </div>
+
+  <footer>
+    Mentor Club Association © 2026
+  </footer>
+
+  <script>
+
+    function joinClub() {
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+
+      if (!name || !phone || !email) {
+        alert("Please fill in your name, phone and email.");
+        return;
+      }
+
+      alert("Registration received! We will connect this to the database next.");
+
+      document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("email").value = "";
+    }
+
+    function login() {
+      alert("Login system will be connected to the member database next.");
+    }
+
+  </script>
+
+</body>
+  </html>
