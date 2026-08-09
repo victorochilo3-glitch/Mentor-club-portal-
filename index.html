@@ -235,8 +235,39 @@ const SUPABASE_KEY = "sb_publishable_LA1_HPf5OLbojF5IlGPtRw_raiL6w8n";
     }
 
 
-function login() {
-  alert("Login system will be connected to the member database soon.");
+async function login() {
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+    alert("Please enter your email and password.");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/members?select=*&email=eq." +
+      encodeURIComponent(email) +
+      "&password=eq." +
+      encodeURIComponent(password),
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + SUPABASE_KEY
+        }
+      }
+    );
+
+    const members = await response.json();
+
+    if (members.length > 0) {
+      alert("LOGIN SUCCESSFUL! Welcome " + members[0].name);
+    } else {
+      alert("Invalid email or password.");
+    }
+  } catch (error) {
+    alert("LOGIN ERROR:\n" + error.message);
+  }
 }
   
   
