@@ -240,7 +240,43 @@ function login() {
 }
   
   
+async function showMembers() {
+  const section = document.createElement("div");
+  section.innerHTML = `
+    <div style="background:white; padding:20px; margin:20px auto; max-width:600px; border-radius:12px;">
+      <h2 style="color:#123c69;">Member List</h2>
+      <div id="membersList">Loading members...</div>
+    </div>
+  `;
 
+  document.body.appendChild(section);
+
+  try {
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/members?select=name,created_at&order=created_at.desc",
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + SUPABASE_KEY
+        }
+      }
+    );
+
+    const members = await response.json();
+
+    document.getElementById("membersList").innerHTML = members.map(member => `
+      <div style="padding:12px 0; border-bottom:1px solid #ddd;">
+        <strong>${member.name}</strong><br>
+        <small>Joined: ${new Date(member.created_at).toLocaleString()}</small>
+      </div>
+    `).join("");
+  } catch (error) {
+    document.getElementById("membersList").innerHTML =
+      "Could not load members.";
+  }
+}
+
+showMembers();
   </script>
 
 </body>
