@@ -1,327 +1,245 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentor Club Portal</title>
-
-  <style>
-    * 
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: #f4f7fb;
-      color: #222;
-    }
-
-    header {
-      background: #123c69;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin-bottom: 5px;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 25px auto;
-      padding: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      margin-bottom: 20px;
-      border-radius: 14px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    }
-
-    h2 {
-      margin-bottom: 15px;
-      color: #123c69;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    button {
-      background: #123c69;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background: #0d2e50;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .stat {
-      background: #eef5ff;
-      padding: 18px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 22px;
-      margin-top: 8px;
-      color: #123c69;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #777;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mentor Club Portal</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fb;color:#222;font-family:Arial,sans-serif}
+header{background:#123c69;color:white;text-align:center;padding:22px 12px}
+header h1{margin:0 0 6px;font-size:28px}
+header p{margin:0}
+.container{max-width:1000px;margin:20px auto;padding:0 12px}
+.card{background:white;padding:20px;margin-bottom:20px;border-radius:14px;
+box-shadow:0 3px 12px rgba(0,0,0,.08)}
+h2{color:#123c69}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat{background:#edf4fd;padding:18px;text-align:center;border-radius:10px}
+.stat b{display:block;font-size:25px;color:#123c69;margin-top:7px}
+input,select,button{width:100%;padding:12px;margin:6px 0;border-radius:8px;
+border:1px solid #ccc;font-size:15px}
+button{background:#123c69;color:white;border:0;font-weight:bold}
+button:hover{opacity:.9}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+th{background:#edf4fd;color:#123c69}
+.scroll{overflow-x:auto}
+.pay{background:#e9f8ee;padding:12px;border-radius:8px}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}
+header h1{font-size:24px}table{font-size:13px}}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Mentor Club Portal</h1>
-    <p>Member Management & Finance Portal</p>
-  </header>
+<header>
+<h1>Mentor Club Portal</h1>
+<p>Member Management & Finance Portal</p>
+</header>
 
-  <div class="container">
+<div class="container">
 
-    <div id="joinSection" class="card">
-      <h2>Join Mentor Club</h2>
-
-      <input type="text" id="name" placeholder="Full name">
-<input type="tel" id="phone" placeholder="Phone number">
-<input type="email" id="email" placeholder="Email address">
-
-<input type="password" id="password" placeholder="Password">
-<button id="joinButton" onclick="joinClub()">Join Club</button>
-  
-
-  
-    </div>
-
-
-<div id="dashboard" class="card" style="display:none;">
+<div class="card">
 <h2>Club Overview</h2>
+<div class="grid">
+<div class="stat">Members<b id="membersCount">0</b></div>
+<div class="stat">Money In<b id="moneyIn">KSh 0</b></div>
+<div class="stat">Money Out<b id="moneyOut">KSh 0</b></div>
+<div class="stat">Balance<b id="balance">KSh 0</b></div>
+</div>
+</div>
 
+<div class="card">
+<h2>Registration</h2>
+<div class="pay">
+<b>Registration fee: KSh 50</b><br>
+Payment number: <b>0119701763</b>
+</div>
 
-      <div class="stats">
-        <div class="stat">
-          Members
-          <strong id="members">0</strong>
-        </div>
+<input id="name" placeholder="Member full name">
+<input id="phone" placeholder="Phone number">
+<input id="reference" placeholder="M-Pesa transaction/reference number">
+<button onclick="addMember()">Register Member & Record KSh 50</button>
+</div>
 
-        <div class="stat">
-          Money In
-          <strong id="moneyIn">0</strong>
-        </div>
+<div class="card">
+<h2>Record Transaction</h2>
 
-        <div class="stat">
-          Money Out
-          <strong id="moneyOut">0</strong>
-        </div>
+<select id="type">
+<option value="contribution">Contribution / Money In</option>
+<option value="payment">Payment to Member / Money Out</option>
+</select>
 
-        <div class="stat">
-          Balance
-          <strong id="balance">0</strong>
-        </div>
-      </div>
-    </div>
+<input id="member" placeholder="Member name">
+<input id="amount" type="number" placeholder="Amount in KSh">
+<input id="txref" placeholder="Transaction/reference number">
+<button onclick="addTransaction()">Save Transaction</button>
+</div>
 
-    <div id="loginSection" class="card">
-<h2>Member Login</h2>
-      
+<div class="card">
+<h2>Members Who Paid</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Name</th><th>Phone</th><th>Paid</th><th>Reference</th></tr></thead>
+<tbody id="paidList"></tbody>
+</table>
+</div>
+</div>
 
-      <input type="email" id="loginEmail" placeholder="Email address">
+<div class="card">
+<h2>All Members</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Name</th><th>Phone</th><th>Registration</th></tr></thead>
+<tbody id="memberList"></tbody>
+</table>
+</div>
+</div>
 
-      <input type="password" id="loginPassword" placeholder="Password">
+<div class="card">
+<h2>Members Receiving Money</h2>
+<div class="scroll">
+<table>
+<thead><tr><th>Name</th><th>Amount</th><th>Reference</th></tr></thead>
+<tbody id="recipientList"></tbody>
+</table>
+</div>
+</div>
 
-      <button onclick="login()">Login</button>
-    </div>
+<div class="card">
+<h2>Transaction History</h2>
+<div class="scroll">
+<table>
+<thead>
+<tr><th>Date</th><th>Name</th><th>Type</th><th>Amount</th><th>Reference</th></tr>
+</thead>
+<tbody id="history"></tbody>
+</table>
+</div>
+</div>
 
-  </div>
+</div>
 
-  <footer>
-    Mentor Club Association © 2026
-  </footer>
+<script>
+const KEY="mentorClubData";
 
- <script>
-const SUPABASE_URL = "https://atmhpipzhtiajyekfcrm.supabase.co";
-const SUPABASE_KEY = "sb_publishable_LA1_HPf5OLbojF5IlGPtRw_raiL6w8n";
+let data=JSON.parse(localStorage.getItem(KEY)||'{"members":[],"transactions":[]}');
 
-
-
-    
-
-
-
-    
-
-  
-
-  async function joinClub() {
-  alert("IT WORKS");
-  alert("1. JOIN FUNCTION STARTED");
-
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
-
-  if (!name || !phone || !email || !password) {
-    alert("2. Please fill all fields");
-    return;
-  }
-
-  alert("3. Fields are OK. Connecting to database...");
-
-  try {
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/members",
-      {
-        method: "POST",
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": "Bearer " + SUPABASE_KEY,
-          "Content-Type": "application/json",
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({
-          name: name,
-          phone: phone,
-          email: email,
-          password: password
-        })
-      }
-    );
-
-    alert("4. Database replied: " + response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      alert("DATABASE ERROR:\n" + errorText);
-      return;
-    }
-
-    alert("5. REGISTRATION SUCCESSFUL!");
-
-    document.getElementById("name").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("email").value = ""
-document.getElementById("password").value = "";
-showMembers();
-
-
-
-  } catch (error) {
-    alert("CONNECTION ERROR:\n" + error.message);
-  }
-    }
-
-
-async function login() {
-    
-
-    const email = document.getElementById("loginEmail").value.trim();
-  
-  const password = document.getElementById("loginPassword").value;
-
-  if (!email || !password) {
-    alert("Please enter your email and password.");
-    return;
-  }
-
-  try {
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/members?select=*&email=eq." +
-      encodeURIComponent(email) +
-      "&password=eq." +
-      encodeURIComponent(password),
-      {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: "Bearer " + SUPABASE_KEY
-        }
-      }
-    );
-
-    const members = await response.json();
-
-    if (members.length > 0) {
-    document.getElementById("joinSection").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
-    document.getElementById("loginSection").style.display = "none";
-    
-    
-      
-
-    }                  else {
-      alert("Invalid email or password.");
-    }
-  } catch (error) {
-    alert("LOGIN ERROR:\n" + error.message);
-  }
-}
-  
-  
-async function showMembers() {
-  const section = document.createElement("div");
-  section.innerHTML = `
-    <div style="background:white; padding:20px; margin:20px auto; max-width:600px; border-radius:12px;">
-      <h2 style="color:#123c69;">Member List</h2>
-      <div id="membersList">Loading members...</div>
-    </div>
-  `;
-
-  document.body.appendChild(section);
-
-  try {
-    const response = await fetch(
-      SUPABASE_URL + "/rest/v1/members?select=name,created_at&order=created_at.desc",
-      {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: "Bearer " + SUPABASE_KEY
-        }
-      }
-    );
-
-    const members = await response.json();
-
-    document.getElementById("membersList").innerHTML = members.map(member => `
-      <div style="padding:12px 0; border-bottom:1px solid #ddd;">
-        <strong>${member.name}</strong><br>
-        <small>Joined: ${new Date(member.created_at).toLocaleString()}</small>
-      </div>
-    `).join("");
-  } catch (error) {
-    document.getElementById("membersList").innerHTML =
-      "Could not load members.";
-  }
+function save(){
+localStorage.setItem(KEY,JSON.stringify(data));
+render();
 }
 
+function addMember(){
+const name=document.getElementById("name").value.trim();
+const phone=document.getElementById("phone").value.trim();
+const reference=document.getElementById("reference").value.trim();
 
-  </script>
+if(!name||!phone||!reference){
+alert("Enter name, phone number and M-Pesa reference.");
+return;
+}
+
+data.members.push({
+name:name,
+phone:phone,
+paid:true,
+reference:reference
+});
+
+data.transactions.push({
+date:new Date().toLocaleString(),
+name:name,
+type:"Registration",
+amount:50,
+reference:reference
+});
+
+document.getElementById("name").value="";
+document.getElementById("phone").value="";
+document.getElementById("reference").value="";
+
+save();
+}
+
+function addTransaction(){
+const type=document.getElementById("type").value;
+const name=document.getElementById("member").value.trim();
+const amount=Number(document.getElementById("amount").value);
+const reference=document.getElementById("txref").value.trim();
+
+if(!name||!amount||!reference){
+alert("Enter member, amount and transaction reference.");
+return;
+}
+
+data.transactions.push({
+date:new Date().toLocaleString(),
+name:name,
+type:type==="contribution"?"Contribution":"Payment",
+amount:amount,
+reference:reference
+});
+
+document.getElementById("member").value="";
+document.getElementById("amount").value="";
+document.getElementById("txref").value="";
+
+save();
+}
+
+function money(n){
+return "KSh "+Number(n).toLocaleString();
+}
+
+function render(){
+
+document.getElementById("membersCount").textContent=data.members.length;
+
+let inMoney=0,outMoney=0;
+
+data.transactions.forEach(t=>{
+if(t.type==="Payment") outMoney+=Number(t.amount);
+else inMoney+=Number(t.amount);
+});
+
+document.getElementById("moneyIn").textContent=money(inMoney);
+document.getElementById("moneyOut").textContent=money(outMoney);
+document.getElementById("balance").textContent=money(inMoney-outMoney);
+
+document.getElementById("paidList").innerHTML=data.members
+.filter(m=>m.paid)
+.map(m=>`<tr>
+<td>${m.name}</td><td>${m.phone}</td>
+<td>KSh 50</td><td>${m.reference}</td>
+</tr>`).join("")||"<tr><td colspan='4'>No paid members yet.</td></tr>";
+
+document.getElementById("memberList").innerHTML=data.members
+.map(m=>`<tr>
+<td>${m.name}</td><td>${m.phone}</td>
+<td>${m.paid?"Paid":"Not Paid"}</td>
+</tr>`).join("")||"<tr><td colspan='3'>No members yet.</td></tr>";
+
+document.getElementById("recipientList").innerHTML=data.transactions
+.filter(t=>t.type==="Payment")
+.map(t=>`<tr>
+<td>${t.name}</td><td>${money(t.amount)}</td><td>${t.reference}</td>
+</tr>`).join("")||"<tr><td colspan='3'>No payments to members yet.</td></tr>";
+
+document.getElementById("history").innerHTML=data.transactions
+.slice().reverse()
+.map(t=>`<tr>
+<td>${t.date}</td>
+<td>${t.name}</td>
+<td>${t.type}</td>
+<td>${money(t.amount)}</td>
+<td>${t.reference}</td>
+</tr>`).join("")||"<tr><td colspan='5'>No transactions yet.</td></tr>";
+}
+
+render();
+</script>
 
 </body>
-  </html>
+</html>
