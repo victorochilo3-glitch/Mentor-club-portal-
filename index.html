@@ -264,8 +264,8 @@ async function login() {
     const members = await response.json();
 
     if (members.length > 0) {
-      alert("LOGIN SUCCESSFUL! Welcome " + members[0].name);
-    } else {
+      alert("LOGIN SUCCESSFUL! Welcome " + members[0].name);showMembers();
+    }                  else {
       alert("Invalid email or password.");
     }
   } catch (error) {
